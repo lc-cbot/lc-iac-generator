@@ -639,7 +639,11 @@
                             <label title="BinLib Extension" data-content="BinLib (Binary Library) is the collection of data and metadata pertaining to executable binaries, such as EXE or ELF files, that have been observed within your organization." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="binlib" name="extensions" value="binlib"> BinLib
                             </label><br>
-                            
+
+                            <label title="Cases Extension" data-content="Case management for security detections. Auto-ingests detections, groups them into cases by category/sensor/time window, tracks lifecycle (new → in_progress → resolved → closed), and exposes a REST API for investigation, MTTA/MTTR tracking, tagging, and retention." data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                <input type="checkbox" id="ext-cases" name="extensions" value="ext-cases"> Cases
+                            </label><br>
+
                             <label title="Cloud CLI Extension" data-content="The Cloud CLI extension allows you to trigger actions within other tools such as AWS, GCP, and DigitalOcean based on events generated in LimaCharlie." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="ext-cloud-cli" name="extensions" value="ext-cloud-cli"> Cloud CLI
                             </label><br>
@@ -647,11 +651,19 @@
                             <label title="Dumper Extension" data-content="Memory and MFT dumping." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="ext-dumper" name="extensions" value="ext-dumper"> Dumper
                             </label><br>
-                            
+
+                            <label title="EPP Extension" data-content="Pulls Microsoft Defender telemetry via artifact collection and ships managed D&amp;R rules that alert on Defender detections and actions." data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                <input type="checkbox" id="ext-epp" name="extensions" value="ext-epp"> EPP (Defender)
+                            </label><br>
+
                             <label title="Exfil Extension" data-content="Manage which events should get sent from sensors to the cloud in real-time. By default, LimaCharlie sensors send events to the cloud based on a standard profile based on the event types that sensor supports." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="ext-exfil" name="extensions" value="ext-exfil"> Exfil
                             </label><br>
-                            
+
+                            <label title="Feedback Extension" data-content="Send interactive approval, acknowledgement, or question prompts to Slack, Telegram, Teams, Email, or the built-in Web UI. Responses are dispatched to cases (notes), playbooks (triggers), or AI agents. Best paired with the Cases and Playbook extensions." data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                <input type="checkbox" id="ext-feedback" name="extensions" value="ext-feedback"> Feedback
+                            </label><br>
+
                             <label title="Git Sync Extension" data-content="The Git Sync extension allows organizations to synchronize their LimaCharlie configurations with Git repositories. It supports bidirectional synchronization (push to Git/pull from Git) of various configuration items." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="ext-git-sync" name="extensions" value="ext-git-sync"> Git Sync
                             </label><br>                            
@@ -679,7 +691,7 @@
                             </label><br>
                             
                             <label title="LimaCharlie CLI Extension" data-content="LimaCharlie CLI extension allows you to issue LimaCharlie CLI commands using extension requests." data-toggle="popover" data-trigger="hover" data-placement="bottom">
-                                <input type="checkbox" id="ext-limacharlie-cli" name="extensions" value="ext-limacharlie-cli"> LimaCharlie CLI
+                                <input type="checkbox" id="limacharlie-cli" name="extensions" value="limacharlie-cli"> LimaCharlie CLI
                             </label><br>
                             
                             <label title="LOLDrivers Extension" data-content="Lookup of Living Off the Land hashes from loldrivers.io." data-toggle="popover" data-trigger="hover" data-placement="bottom">
@@ -689,7 +701,24 @@
                             <label title="Lookup Manager Extension" data-content="The Lookup Manager extension allows you to create, maintain & automatically refresh lookups in the organization to then reference them in Detection & Response Rules." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="ext-lookup-manager" name="extensions" value="ext-lookup-manager"> Lookup Manager
                             </label><br>
-                            
+
+                            <label title="Magonia TLSH Scanner Extension" data-content="TLSH (fuzzy-hash) similarity scanning of binaries against the CelesTLSH malware corpus and your own custom hashes. Per-host alerting requires the Insight (retention) add-on, which is a paid feature." data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                <input type="checkbox" id="ext-magonia-tlsh-scanner" name="extensions" value="ext-magonia-tlsh-scanner"> Magonia TLSH Scanner
+                            </label><br>
+
+                            <label title="NIMS Extension" data-content="Pushes detections from LimaCharlie into NIMS (Notion Incident Management System) via the Notion API. Requires a Notion auth token and two Notion database IDs (alerts and assets)."
+                                data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                <input type="checkbox" id="ext-nims" name="extensions" value="ext-nims"
+                                    user-inputs='[
+                                        {"id": "nims-auth-token", "desc": "Notion Auth Token", "path": "hives.secret.nims-auth-token.data.secret"},
+                                        {"id": "nims-alerts-database-id", "desc": "NIMS Alerts Database ID", "path": "hives.extension_config.ext-nims.data.alerts_database_id"},
+                                        {"id": "nims-assets-database-id", "desc": "NIMS Assets Database ID", "path": "hives.extension_config.ext-nims.data.assets_database_id"},
+                                        {"id": "set-value", "path": "hives.secret.nims-auth-token.usr_mtd.enabled", "value": true, "hidden": true},
+                                        {"id": "set-value", "path": "hives.extension_config.ext-nims.data.auth_token", "value": "hive://secret/nims-auth-token", "hidden": true},
+                                        {"id": "set-value", "path": "hives.extension_config.ext-nims.usr_mtd.enabled", "value": true, "hidden": true}
+                                    ]'> NIMS
+                            </label><br>
+
                             <label title="OTX Extension" data-content="Continuously import all your OTX pulses and the relevant D&R rules for most indicator types." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="ext-otx" name="extensions" value="ext-otx" 
                                     user-inputs='[
@@ -717,11 +746,38 @@
                             <label title="Plaso Extension" data-content="The Plaso extension allows you to run Plaso against forensic artifacts collected from endpoints based on D&R rule actions." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="ext-plaso" name="extensions" value="ext-plaso"> Plaso
                             </label><br>
-                            
+
+                            <label title="Playbook Extension" data-content="Create and run user-authored Python playbooks. Each playbook is a Python script with a single playbook(sdk, data) function, triggerable from D&amp;R rules or extension requests. Best paired with the Feedback extension for human-in-the-loop approvals." data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                <input type="checkbox" id="ext-playbook" name="extensions" value="ext-playbook"> Playbook
+                            </label><br>
+
                             <label title="Reliable Tasking Extension" data-content="Extension that enables you to task a sensor (or set of sensors) that are currently offline. The service will automatically send the tasks to the sensor once it becomes online." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="ext-reliable-tasking" name="extensions" value="ext-reliable-tasking"> Reliable Tasking
                             </label><br>
-                            
+
+                            <label title="REnigma Extension" data-content="Automated suspicious-file and URL analysis via the REnigma API. Integrates with collected artifacts (BinLib, artifact collection, etc.) and returns analysis results."
+                                data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                <input type="checkbox" id="ext-renigma" name="extensions" value="ext-renigma"
+                                    user-inputs='[
+                                        {"id": "renigma-api-key", "desc": "REnigma API Key", "path": "hives.secret.renigma-api-key.data.secret"},
+                                        {"id": "renigma-api-url", "desc": "REnigma API URL", "path": "hives.extension_config.ext-renigma.data.api_url"},
+                                        {"id": "set-value", "path": "hives.secret.renigma-api-key.usr_mtd.enabled", "value": true, "hidden": true},
+                                        {"id": "set-value", "path": "hives.extension_config.ext-renigma.data.api_key", "value": "hive://secret/renigma-api-key", "hidden": true},
+                                        {"id": "set-value", "path": "hives.extension_config.ext-renigma.usr_mtd.enabled", "value": true, "hidden": true}
+                                    ]'> REnigma
+                            </label><br>
+
+                            <label title="SecureAnnex Extension" data-content="Analyzes Google Chrome extensions on Windows sensors via the SecureAnnex API. Submit Chrome extension IDs and receive risk analysis back."
+                                data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                <input type="checkbox" id="ext-secureannex" name="extensions" value="ext-secureannex"
+                                    user-inputs='[
+                                        {"id": "secureannex-api-key", "desc": "SecureAnnex API Key", "path": "hives.secret.secureannex-api-key.data.secret"},
+                                        {"id": "set-value", "path": "hives.secret.secureannex-api-key.usr_mtd.enabled", "value": true, "hidden": true},
+                                        {"id": "set-value", "path": "hives.extension_config.ext-secureannex.data.api_key", "value": "hive://secret/secureannex-api-key", "hidden": true},
+                                        {"id": "set-value", "path": "hives.extension_config.ext-secureannex.usr_mtd.enabled", "value": true, "hidden": true}
+                                    ]'> SecureAnnex
+                            </label><br>
+
                             <label title="Sensor Cull Extension" data-content="Automated sensor deletion upon an expiration time. Ideal for cloud docker deployments of VM-based deployments creating sensors in continuous fashion." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                 <input type="checkbox" id="ext-sensor-cull" name="extensions" value="ext-sensor-cull"> Sensor Cull
                             </label><br>
@@ -738,6 +794,10 @@
                                         {"id": "set-value", "path": "hives.extension_config.ext-twilio.data.sid_token", "value": "hive://secret/twilio-sid-token", "hidden": true},
                                         {"id": "set-value", "path": "hives.extension_config.ext-twilio.usr_mtd.enabled", "value": true, "hidden": true}
                                     ]'> Twilio
+                            </label><br>
+
+                            <label title="Usage Alerts Extension" data-content="Define per-org usage thresholds (data volume or event counts). The extension creates managed D&amp;R rules that detect when usage exceeds your limits. Rule details are configured post-deploy via the extension's config UI." data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                <input type="checkbox" id="ext-usage-alerts" name="extensions" value="ext-usage-alerts"> Usage Alerts
                             </label><br>
 
                             <label title="Velociraptor Extension" data-content="Velociraptor is an advanced digital forensic and incident response tool that enhances your visibility into your endpoints." data-toggle="popover" data-trigger="hover" data-placement="bottom">
@@ -761,6 +821,10 @@
                     <fieldset>
                         <legend>Rulesets</legend>
                             <div class="multi-column">
+                                <label title="Blokworx Rules" data-content="Managed set of EDR Detection &amp; Response rules developed by Blokworx and auto-synchronized from their repository. May incur additional cost." data-toggle="popover" data-trigger="hover" data-placement="bottom">
+                                    <input type="checkbox" id="ext-blokworx-rules" name="extensions" value="ext-blokworx-rules"> Blokworx Rules
+                                </label><br>
+
                                 <label title="Sigma Extension" data-content="This extension provides a core set of the open-source Sigma rules in a managed fashion." data-toggle="popover" data-trigger="hover" data-placement="bottom">
                                     <input type="checkbox" id="ext-sigma" name="extensions" value="ext-sigma"> Sigma
                                 </label><br>
